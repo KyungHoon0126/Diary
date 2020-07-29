@@ -10,17 +10,16 @@ using System.Windows.Documents;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
 using System.Windows.Shapes;
 
 namespace Making_A_Diary
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for WriteDiaryWindow.xaml
     /// </summary>
-    public partial class MainWindow : Window
+    public partial class WriteDiaryWindow : Window
     {
-        public MainWindow()
+        public WriteDiaryWindow()
         {
             InitializeComponent();
         }
