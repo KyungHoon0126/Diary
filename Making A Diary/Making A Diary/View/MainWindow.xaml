@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:Making_A_Diary"
         mc:Ignorable="d"
         WindowStartupLocation="CenterScreen"
-        Title="MainWindow" Height="1000" Width="600">
+        Title="Simple Diary" Height="1000" Width="600">
 
     <Window.Resources>
         <Style TargetType="Button" x:Key="commonBtnStyle">
@@ -14,8 +14,8 @@
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
         </Style>
     </Window.Resources>
-    
-    <Grid>
+
+    <Grid Background="#F5F7FA">
         <Grid.RowDefinitions>
             <RowDefinition Height="1*"/>
             <RowDefinition Height="9*"/>
@@ -24,8 +24,8 @@
         <Grid Grid.Row="0">
             <Grid Margin="5">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="7*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="6*"/>
+                    <RowDefinition Height="4*"/>
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
@@ -35,23 +35,26 @@
                     </Grid.ColumnDefinitions>
 
                     <Grid Grid.Column="0" Margin="5">
-                        <Button Style="{StaticResource commonBtnStyle}"
-                            Click="btn_WriteDiary_Click">
+                        <Button Style="{StaticResource commonBtnStyle}" 
+                                Click="btn_WriteDiary_Click" Background="#7A57D1"
+                                FontFamily="나눔스퀘어_ac" FontSize="20" Foreground="White">
                             일기 쓰기
                         </Button>
                     </Grid>
 
                     <Grid Grid.Column="1" Margin="5">
                         <Button Style="{StaticResource commonBtnStyle}"
-                            Command="{Binding DiaryOpenCommand}">
+                                Command="{Binding DiaryOpenCommand}" Background="#7A57D1"
+                                FontFamily="나눔스퀘어_ac" FontSize="20" Foreground="White">
                             저장된 일기 열기
                         </Button>
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Label Content="Diary List"
-                           HorizontalAlignment="Center"/>
+                    <Label Content="Diary 목록" FontSize="20" FontFamily="나눔스퀘어_ac"
+                           Width="570" HorizontalContentAlignment="Center"
+                           HorizontalAlignment="Center" FontWeight="SemiBold"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -64,14 +67,29 @@
 
             <Grid Grid.Row="0">
                 <ListView x:Name="lvDiaryList" Margin="10" ItemsSource="{Binding DiaryItems}"
-                          SelectionChanged="lvDiaryList_SelectionChanged" Height="320">
+                          SelectionChanged="lvDiaryList_SelectionChanged" Background="#5BE7C4">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <StackPanel>
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="8*"/>
+                                    <ColumnDefinition Width="2*"/>
+                                </Grid.ColumnDefinitions>
+                                
+                                <Grid Grid.Column="0">
                                     <TextBlock Text="{Binding DiaryTitle}" TextWrapping="Wrap"
-                                               Height="30" FontSize="20"/>
-                                </StackPanel>
+                                               FontSize="20" FontFamily="나눔스퀘어_ac" VerticalAlignment="Center"/>
+                                </Grid>
+
+                                <Grid Grid.Column="1">
+                                    <Button FontFamily="나눔스퀘어_ac"
+                                            Background="Transparent"
+                                            BorderBrush="White"
+                                            Margin="5"
+                                            FontSize="20"
+                                            VerticalAlignment="Center"
+                                            Click="btn_DiaryDelete_Click">삭제하기</Button>
+                                </Grid>
                             </Grid>    
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -79,8 +97,8 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TextBox x:Name="tbDiaryContent" Text="{Binding OpenDiaryContent}"
-                         TextWrapping="Wrap" Margin="10" FontSize="20"/>
+                <TextBox x:Name="tbDiaryContent" Text="{Binding OpenDiaryContent}" FontFamily="나눔스퀘어_ac"
+                         TextWrapping="Wrap" Margin="10" FontSize="20" Background="#50C1E9"/>
             </Grid>
         </Grid>
     </Grid>

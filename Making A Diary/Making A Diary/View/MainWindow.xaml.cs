@@ -18,6 +18,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using System.Windows.Threading;
 
 namespace Making_A_Diary
 {
@@ -45,6 +46,7 @@ namespace Making_A_Diary
         private void DiaryViewModel_OnWriteDiaryResultReceived()
         {
             window.Close();
+            tbDiaryContent.Text = string.Empty;
         }
 
         private void btn_WriteDiary_Click(object sender, RoutedEventArgs e)
@@ -68,7 +70,40 @@ namespace Making_A_Diary
             }
         }
 
-        // TOOD : 파일 목록 나타낼 시 하나가 안나옴.
+        private void btn_DiaryDelete_Click(object sender, RoutedEventArgs e)
+        {
+            if(lvDiaryList.SelectedItem == null)
+            {
+                MessageBox.Show("삭제할 목록을 선택해 주세요!");
+            }
+            else
+            {
+                try
+                {
+                    string path = "C:\\diaryFolder\\" + (lvDiaryList.SelectedItem as Diary).DiaryTitle + ".txt";
+
+                    if (MessageBox.Show("정말 삭제하시겠습니까?", (lvDiaryList.SelectedItem as Diary).DiaryTitle, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    {
+                        File.Delete(path);
+                        App.diaryViewModel.DiaryItems.Clear();
+                        App.diaryViewModel.GetDiaryList();
+
+                        //Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
+                        //{
+                        //    File.Delete(path);
+                        //    lvDiaryList.Items.Remove(lvDiaryList.SelectedItem);
+                        //    tbDiaryContent.Text = string.Empty;
+                        //    App.diaryViewModel.GetDiaryList();
+                        //}));
+                    }
+                }
+                catch (Exception error)
+                {
+                    Debug.WriteLine(error.Message);
+                }
+            }
+        }
+
         // TODO : 파일 열기로 내용 출력시 값은 들어오나 바인딩이 안됨.
     }
 }
