@@ -1,4 +1,5 @@
 ﻿using Making_A_Diary.Common;
+using Making_A_Diary.Model;
 using Making_A_Diary.ViewModel;
 using Microsoft.Win32;
 using Prism.Commands;
@@ -16,19 +17,6 @@ using System.Windows.Input;
 
 namespace Making_A_Diary.ViewModel
 {
-    public class Diary : ICloneable
-    {
-        public string DiaryTitle { get; set; }
-
-        public object Clone()
-        {
-            return new Diary
-            {
-                DiaryTitle = this.DiaryTitle
-            };
-        }
-    }
-
     public class DiaryViewModel
     {
         public delegate void OnWriteDiaryResultReceivedHandler();
@@ -80,11 +68,18 @@ namespace Making_A_Diary.ViewModel
 
         public DiaryViewModel()
         {
+            InitCommand();
+        }
+
+        #region Initialize
+        private void InitCommand()
+        {
             DiaryOpenCommand = new DelegateCommand(OnOpenDiary);
             DiaryWriteCommand = new DelegateCommand(OnDiaryWrite);
         }
+        #endregion
 
-        #region INIT
+        #region Create Directory
         public void IsDirectoryExsist()
         {
             DirectoryInfo directory = new DirectoryInfo(ComDef.folderPath);
@@ -105,7 +100,9 @@ namespace Making_A_Diary.ViewModel
                 {
                     openFile.Filter = "Text File | *.txt";
                     openFile.FileOk += OpenFile_FileOk;
+                    // 존재하지 않는 파일 이름을 지정할 때 대화 상자에 경고가 표시되는지를 나타내는 값을 가져오거나 설정.
                     openFile.CheckFileExists = true;
+                    // 존재하지 않는 경로를 지정할 때 대화 상자에 경고가 표시되는지를 나타내는 값을 가져오거나 설정.
                     openFile.CheckPathExists = true;
 
                     if (openFile.ShowDialog().GetValueOrDefault())
@@ -159,15 +156,12 @@ namespace Making_A_Diary.ViewModel
                         {
                             ComDef.file = saveFile.FileName;
                         }
-                        else
-                        {
-                            return;
-                        }
                     }
 
                     using (StreamWriter sw = new StreamWriter(ComDef.file, false, Encoding.UTF8))
                     {
                         sw.Write(writeDiaryContent);
+                        ComDef.file = "";
                     }
 
                     OnWriteDiaryResultReceived?.Invoke();
@@ -175,10 +169,6 @@ namespace Making_A_Diary.ViewModel
                 catch (Exception e)
                 {
                     Debug.WriteLine(e.Message);
-                }
-                finally
-                {
-                    GetDiaryList();
                 }
             }
             else
@@ -201,6 +191,11 @@ namespace Making_A_Diary.ViewModel
         #region GetDiaryList
         public void GetDiaryList()
         {
+            if(DiaryItems.Count > 0)
+            {
+                DiaryItems.Clear();
+            }
+
             DirectoryInfo directory = new DirectoryInfo(ComDef.folderPath);
             List<string> fileList = new List<string>();
             
@@ -214,7 +209,6 @@ namespace Making_A_Diary.ViewModel
             }
 
             Diary diary = new Diary();
-
             foreach(var item in fileList)
             {
                 diary.DiaryTitle = item;

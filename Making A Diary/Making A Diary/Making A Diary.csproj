@@ -95,6 +95,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Common\ComDef.cs" />
+    <Compile Include="Model\Diary.cs" />
     <Compile Include="ViewModel\DiaryViewModel.cs" />
     <Compile Include="View\WriteDiaryWindow.xaml.cs">
       <DependentUpon>WriteDiaryWindow.xaml</DependentUpon>

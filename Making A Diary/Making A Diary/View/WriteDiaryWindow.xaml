@@ -11,6 +11,9 @@
         <Style TargetType="Button" x:Key="commonBtnStyle">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Background" Value="White"/>
         </Style>
     </Window.Resources>
 
@@ -29,15 +32,15 @@
         </Grid>
 
         <Grid Grid.Row="1">
-            <TextBox x:Name="tbDiaryContent" Text="{Binding WriteDiaryContent}" 
-                     Margin="10" FontFamily="나눔스퀘어_ac" FontSize="20"/>
+            <TextBox x:Name="tbDiaryContent" Margin="10"
+                     Text="{Binding WriteDiaryContent}" TextWrapping="Wrap"
+                     FontFamily="나눔스퀘어_ac" FontSize="20"/>
         </Grid>
 
         <Grid Grid.Row="2">
             <Button Command="{Binding DiaryWriteCommand}"
                     Style="{StaticResource commonBtnStyle}"
-                    Margin="10" FontFamily="나눔스퀘어_ac"
-                    FontSize="20" Background="White">
+                    Margin="10">
                 일기 저장
             </Button>
         </Grid>

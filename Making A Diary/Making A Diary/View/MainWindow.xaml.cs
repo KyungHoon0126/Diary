@@ -1,9 +1,11 @@
 ﻿using Making_A_Diary.Common;
+using Making_A_Diary.Model;
 using Making_A_Diary.ViewModel;
 using Microsoft.Win32;
 using SQLite;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
@@ -28,6 +30,7 @@ namespace Making_A_Diary
     public partial class MainWindow : Window
     {
         Window window;
+        ICollectionView view = CollectionViewSource.GetDefaultView(App.diaryViewModel.DiaryItems);
 
         public MainWindow()
         {
@@ -46,27 +49,36 @@ namespace Making_A_Diary
         private void DiaryViewModel_OnWriteDiaryResultReceived()
         {
             window.Close();
-            tbDiaryContent.Text = string.Empty;
+            App.diaryViewModel.GetDiaryList();
+            view.Refresh();
         }
 
         private void btn_WriteDiary_Click(object sender, RoutedEventArgs e)
         {
             WriteDiaryWindow writeDiaryWindow = new WriteDiaryWindow();
+            App.diaryViewModel.WriteDiaryContent = null;
             window = writeDiaryWindow;
             writeDiaryWindow.ShowDialog();
         }
 
         private void lvDiaryList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            try
+            if(lvDiaryList.SelectedItem != null)
             {
-                string path = "C:\\diaryFolder\\" + (lvDiaryList.SelectedItem as Diary).DiaryTitle + ".txt";
-                tbDiaryContent.Text = File.ReadAllText(path);
-                // App.diaryViewModel.OpenDiaryContent = File.ReadAllText(path);
+                try
+                {
+                    string path = "C:\\diaryFolder\\" + (lvDiaryList.SelectedItem as Diary).DiaryTitle + ".txt";
+                    tbDiaryContent.Text = File.ReadAllText(path);
+                    // App.diaryViewModel.OpenDiaryContent = File.ReadAllText(path); // 바인딩하는 OpenDiaryContent에 바로 넣으려고 했으나 값이 보이지 않음.
+                }
+                catch (Exception error)
+                {
+                    Debug.WriteLine(error.Message);
+                }
             }
-            catch (Exception error)
+            else
             {
-                Debug.WriteLine(error.Message);
+                return;
             }
         }
 
@@ -85,16 +97,8 @@ namespace Making_A_Diary
                     if (MessageBox.Show("정말 삭제하시겠습니까?", (lvDiaryList.SelectedItem as Diary).DiaryTitle, MessageBoxButton.YesNo) == MessageBoxResult.Yes)
                     {
                         File.Delete(path);
-                        App.diaryViewModel.DiaryItems.Clear();
                         App.diaryViewModel.GetDiaryList();
-
-                        //Dispatcher.BeginInvoke(DispatcherPriority.Background, new Action(() =>
-                        //{
-                        //    File.Delete(path);
-                        //    lvDiaryList.Items.Remove(lvDiaryList.SelectedItem);
-                        //    tbDiaryContent.Text = string.Empty;
-                        //    App.diaryViewModel.GetDiaryList();
-                        //}));
+                        view.Refresh();
                     }
                 }
                 catch (Exception error)
@@ -105,5 +109,6 @@ namespace Making_A_Diary
         }
 
         // TODO : 파일 열기로 내용 출력시 값은 들어오나 바인딩이 안됨.
+        // TODO : 파일 목록에서 마지막 하나의 목록이 보이지 않음.
     }
 }

@@ -12,6 +12,10 @@
         <Style TargetType="Button" x:Key="commonBtnStyle">
             <Setter Property="Background" Value="Transparent"/>
             <Setter Property="FocusVisualStyle" Value="{x:Null}"/>
+            <Setter Property="FontFamily" Value="나눔스퀘어_ac"/>
+            <Setter Property="FontSize" Value="20"/>
+            <Setter Property="Foreground" Value="White"/>
+            <Setter Property="Background" Value="#7A57D1"/>
         </Style>
     </Window.Resources>
 
@@ -36,25 +40,23 @@
 
                     <Grid Grid.Column="0" Margin="5">
                         <Button Style="{StaticResource commonBtnStyle}" 
-                                Click="btn_WriteDiary_Click" Background="#7A57D1"
-                                FontFamily="나눔스퀘어_ac" FontSize="20" Foreground="White">
+                                Click="btn_WriteDiary_Click">
                             일기 쓰기
                         </Button>
                     </Grid>
 
                     <Grid Grid.Column="1" Margin="5">
                         <Button Style="{StaticResource commonBtnStyle}"
-                                Command="{Binding DiaryOpenCommand}" Background="#7A57D1"
-                                FontFamily="나눔스퀘어_ac" FontSize="20" Foreground="White">
+                                Command="{Binding DiaryOpenCommand}">
                             저장된 일기 열기
                         </Button>
                     </Grid>
                 </Grid>
 
                 <Grid Grid.Row="1">
-                    <Label Content="Diary 목록" FontSize="20" FontFamily="나눔스퀘어_ac"
-                           Width="570" HorizontalContentAlignment="Center"
-                           HorizontalAlignment="Center" FontWeight="SemiBold"/>
+                    <Label Content="Diary 목록" Width="570" 
+                           HorizontalAlignment="Center" HorizontalContentAlignment="Center"
+                           FontSize="20" FontFamily="나눔스퀘어_ac" FontWeight="SemiBold"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -82,10 +84,10 @@
                                 </Grid>
 
                                 <Grid Grid.Column="1">
-                                    <Button FontFamily="나눔스퀘어_ac"
+                                    <Button Margin="5" 
                                             Background="Transparent"
                                             BorderBrush="White"
-                                            Margin="5"
+                                            FontFamily="나눔스퀘어_ac"
                                             FontSize="20"
                                             VerticalAlignment="Center"
                                             Click="btn_DiaryDelete_Click">삭제하기</Button>
@@ -97,8 +99,9 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TextBox x:Name="tbDiaryContent" Text="{Binding OpenDiaryContent}" FontFamily="나눔스퀘어_ac"
-                         TextWrapping="Wrap" Margin="10" FontSize="20" Background="#50C1E9"/>
+                <TextBox x:Name="tbDiaryContent" Text="{Binding OpenDiaryContent}" TextWrapping="Wrap"
+                         FontFamily="나눔스퀘어_ac" FontSize="20" 
+                         Margin="10"  Background="#50C1E9"/>
             </Grid>
         </Grid>
     </Grid>
