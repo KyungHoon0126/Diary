@@ -22,6 +22,12 @@ namespace Making_A_Diary
         public WriteDiaryWindow()
         {
             InitializeComponent();
+            Loaded += WriteDiaryWindow_Loaded;
+        }
+
+        private void WriteDiaryWindow_Loaded(object sender, RoutedEventArgs e)
+        {
+            this.DataContext = App.diaryViewModel;
         }
     }
 }

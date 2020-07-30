@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Making_A_Diary.ViewModel;
+using System;
 using System.Collections.Generic;
 using System.Configuration;
 using System.Data;
@@ -13,5 +14,6 @@ namespace Making_A_Diary
     /// </summary>
     public partial class App : Application
     {
+        public static DiaryViewModel diaryViewModel = new DiaryViewModel();
     }
 }

@@ -23,23 +23,35 @@
 
         <Grid Grid.Row="0">
             <Grid Margin="5">
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="3*"/>
+                </Grid.RowDefinitions>
 
-                <Grid Grid.Column="0" Margin="5">
-                    <Button Style="{StaticResource commonBtnStyle}"
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Grid Grid.Column="0" Margin="5">
+                        <Button Style="{StaticResource commonBtnStyle}"
                             Click="btn_WriteDiary_Click">
-                        일기 쓰기
-                    </Button>
+                            일기 쓰기
+                        </Button>
+                    </Grid>
+
+                    <Grid Grid.Column="1" Margin="5">
+                        <Button Style="{StaticResource commonBtnStyle}"
+                            Command="{Binding DiaryOpenCommand}">
+                            저장된 일기 열기
+                        </Button>
+                    </Grid>
                 </Grid>
 
-                <Grid Grid.Column="1" Margin="5">
-                    <Button Style="{StaticResource commonBtnStyle}"
-                            Click="btn_OpenDiary_Click">
-                        저장된 일기 열기
-                    </Button>
+                <Grid Grid.Row="1">
+                    <Label Content="Diary List"
+                           HorizontalAlignment="Center"/>
                 </Grid>
             </Grid>
         </Grid>
@@ -51,17 +63,15 @@
             </Grid.RowDefinitions>
 
             <Grid Grid.Row="0">
-                <!--<Border BorderThickness="1" BorderBrush="Black" Margin="10">
-                    <Grid Background="White">
-                        
-                    </Grid>
-                </Border>-->
-
-                <ListView x:Name="lvDiaryList" Margin="10">
+                <ListView x:Name="lvDiaryList" Margin="10" ItemsSource="{Binding DiaryItems}"
+                          SelectionChanged="lvDiaryList_SelectionChanged" Height="320">
                     <ListView.ItemTemplate>
                         <DataTemplate>
                             <Grid>
-                                <TextBlock Text="{Binding}" />
+                                <StackPanel>
+                                    <TextBlock Text="{Binding DiaryTitle}" TextWrapping="Wrap"
+                                               Height="30" FontSize="20"/>
+                                </StackPanel>
                             </Grid>    
                         </DataTemplate>
                     </ListView.ItemTemplate>
@@ -69,7 +79,8 @@
             </Grid>
 
             <Grid Grid.Row="1">
-                <TextBox x:Name="tbDiaryContent" TextWrapping="Wrap" Margin="10"/>
+                <TextBox x:Name="tbDiaryContent" Text="{Binding OpenDiaryContent}"
+                         TextWrapping="Wrap" Margin="10" FontSize="20"/>
             </Grid>
         </Grid>
     </Grid>
