@@ -1,2 +1,2 @@
-# Ducami Making a Diary
-[Ducami] C#을 활용한 다이어리 제작
+# Simple Diary
+파일 입출력을 이용한 다이어리 제작
