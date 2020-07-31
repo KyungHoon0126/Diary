@@ -33,24 +33,25 @@
                 </Grid.RowDefinitions>
 
                 <Grid Grid.Row="0">
-                    <Grid.ColumnDefinitions>
+                    <!--<Grid.ColumnDefinitions>
                         <ColumnDefinition Width="*"/>
                         <ColumnDefinition Width="*"/>
-                    </Grid.ColumnDefinitions>
+                    </Grid.ColumnDefinitions>-->
 
-                    <Grid Grid.Column="0" Margin="5">
+                    <!--<Grid Grid.Column="0" Margin="5">-->
+                    <Grid Margin="5">
                         <Button Style="{StaticResource commonBtnStyle}" 
                                 Click="btn_WriteDiary_Click">
                             일기 쓰기
                         </Button>
                     </Grid>
 
-                    <Grid Grid.Column="1" Margin="5">
+                    <!--<Grid Grid.Column="1" Margin="5">
                         <Button Style="{StaticResource commonBtnStyle}"
                                 Command="{Binding DiaryOpenCommand}">
                             저장된 일기 열기
                         </Button>
-                    </Grid>
+                    </Grid>-->
                 </Grid>
 
                 <Grid Grid.Row="1">
