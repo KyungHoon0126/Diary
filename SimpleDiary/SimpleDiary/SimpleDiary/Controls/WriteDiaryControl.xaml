@@ -1,0 +1,44 @@
+﻿<UserControl x:Class="SimpleDiary.Controls.WriteDiaryControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:SimpleDiary.Controls"
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    
+    <Grid Background="White">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Grid Grid.Row="0">
+            <DatePicker x:Name="dpDate" Style="{StaticResource MaterialDesignDatePicker}"
+                        Width="200"/>
+        </Grid>
+
+        <Grid Grid.Row="1">
+            <StackPanel>
+                <Label Content="제목" Style="{StaticResource MaterialDesignLabel}"/>
+                <TextBox x:Name="tbTitle" SelectionChanged="DiaryContent_SelectionChanged"/>
+                <Label Content="내용" Style="{StaticResource MaterialDesignLabel}"/>
+                <TextBox x:Name="tbContent" SelectionChanged="DiaryContent_SelectionChanged"/>
+            </StackPanel>
+        </Grid>
+
+        <Grid Grid.Row="2">
+            <StackPanel Orientation="Horizontal"
+                        HorizontalAlignment="Center">
+                <Button x:Name="btnMoveToHome"
+                        Content="돌아가기"
+                        Margin="5"/>
+                <Button x:Name="btnWritePost"
+                        Content="작성하기"
+                        Margin="5"
+                        Click="btnWritePost_Click"/>
+            </StackPanel>
+        </Grid>
+    </Grid>
+</UserControl>

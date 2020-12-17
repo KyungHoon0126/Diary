@@ -1,0 +1,64 @@
+﻿<Window x:Class="SimpleDiary.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:SimpleDiary"
+        xmlns:control="clr-namespace:SimpleDiary.Controls"
+        WindowStartupLocation="CenterScreen"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="700" Width="650">
+    <Grid>
+        <Grid x:Name="gdMain">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="Auto"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+
+            <TextBlock Text="일기 목록"
+                   VerticalAlignment="Center"
+                   HorizontalAlignment="Center"
+                   FontSize="30"/>
+
+            <ListView x:Name="lvDiaryList" ItemsSource="{Binding DiaryItems}" Grid.Row="1">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <StackPanel>
+                            <StackPanel Orientation="Horizontal">
+                                <StackPanel.Resources>
+                                    <Style TargetType="TextBlock">
+                                        <Setter Property="VerticalAlignment" Value="Center"/>
+                                        <Setter Property="FontSize" Value="20"/>
+                                        <Setter Property="MaxWidth" Value="400"/>
+                                        <Setter Property="TextTrimming" Value="CharacterEllipsis"/>
+                                        <Setter Property="TextWrapping" Value="Wrap"/>
+                                    </Style>
+                                </StackPanel.Resources>
+                                <TextBlock Text="{Binding Title, StringFormat={}제목 : {0}}"/>
+                                <TextBlock Text="{Binding WrittenTime, StringFormat={}날짜 : {0:yyyy년 MM월 dd일 dddd}}"/>
+                                <Button x:Name="btnDeleteDiary" Content="삭제하기" Click="btnDeleteDiary_Click"/>
+                            </StackPanel>
+                        </StackPanel>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+
+            <Button x:Name="btnWriteDiary" Grid.Row="1"
+                Style="{StaticResource MaterialDesignFloatingActionButton}"
+                Click="btnWriteDiary_Click"
+                VerticalAlignment="Bottom"
+                HorizontalAlignment="Right"
+                Margin="20">
+                <Button.Content>
+                    <TextBlock>
+                    일기
+                    <LineBreak/>
+                    쓰기
+                    </TextBlock>
+                </Button.Content>
+            </Button>
+        </Grid>
+
+        <control:WriteDiaryControl x:Name="ctrlWriteDiary" Visibility="Collapsed"/>
+    </Grid>
+</Window>
